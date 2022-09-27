@@ -158,7 +158,7 @@
     <div class="row ww-rsvp-form">
       <div class="col-md-10">
         <div class="card-body">
-          <form id="my-form" action="" method="POST">
+          <form id="my-form" action="https://script.google.com/macros/s/AKfycbw3Set6lGQxBCvyZa_DteGrdL1qEZ59x2Owuevr0sq48Cbu9dc28BxsKT2YPoVSkFu6-g/exec" method="POST">
             <div class="row">
               <div class="col md-6 pb-3">
                 <div class="form-group">
@@ -177,11 +177,12 @@
               <div class="col md-6 pb-3">
                 <div class="form-group">
                   <label for="guest-input">Bạn đi cùng ai ?</label>
-                  <select class="form-control" id="guest-input" name="guest">
-                    <option value="1">1 (Cu đơn)</option>
-                    <option value="2">2 (Có đôi cặp)</option>
-                    <option value="3">3 (Gia đình một con)</option>
-                    <option value="4">4 (Gia đình đông con)</option>
+                  <select class="form-control" id="guest-input" name="with">
+                    <option value="cudon">1 (Cu đơn)</option>
+                    <option value="codoicocap">2 (Có đôi cặp)</option>
+                    <option value="giadinh1con">3 (Hai vợ chồng son)</option>
+                    <option value="giadinh1con">4 (Gia đình một con)</option>
+                    <option value="giadinhnhieucon">5 (Gia đình đông con)</option>
                   </select>
                 </div>
               </div>
@@ -189,9 +190,9 @@
                 <div class="form-group">
                   <label for="events-input">Bạn đến bằng phương tiện gì ?</label>
                   <select class="form-control" id="events-input" name="events">
-                    <option value="all-event">Ô tô</option>
-                    <option value="wedding-ceremony">Xe máy</option>
-                    <option value="reception-party">Căng hải</option>
+                    <option value="oto">Ô tô</option>
+                    <option value="xemay">Xe máy</option>
+                    <option value="canghai">Căng hải</option>
                   </select>
                 </div>
               </div>
@@ -206,7 +207,8 @@
             </div>
             <div class="row">
               <div class="col text-center">
-                <a class="btn btn-primary"  onclick="SaveData()">Bút sa gà chết</a>
+                <!-- <a class="btn btn-primary"  onclick="SaveData()">Bút sa gà chết</a> -->
+                <button class="btn btn-primary btn-submit" type="submit">Bút sa gà chết</button>
               </div>
             </div>
           </form>
@@ -290,33 +292,51 @@
         }
       }, 1000);
      
-      var f = "/home/tado/Desktop/test/public/save_data.txt";
+      // var f = "/home/tado/Desktop/test/public/save_data.txt";
         
-      function writeTextFile(afilename, output)
-      {
-        var txtFile =new File(filename);
-        txtFile.writeln(output);
-        txtFile.close();
-      }
+      // function writeTextFile(afilename, output)
+      // {
+      //   var txtFile =new File(filename);
+      //   txtFile.writeln(output);
+      //   txtFile.close();
+      // }
 
       
-      // // window.addEventListener("load", function() {
-      //   const form = document.getElementById('my-form');
-      //   form.addEventListener("submit", function(e) {
+      // // // window.addEventListener("load", function() {
+      // //   const form = document.getElementById('my-form');
+      // //   form.addEventListener("submit", function(e) {
             
         
-      //   });
+      // //   });
   
-      function SaveData(){
-        writeTextFile(f,document.getElementById('email-input').value);
-        alert("Yay, hẹn gặp bạn vào ngày 30/10 nhé!");
-        //   var jsonData = JSON.stringify(document.getElementById('email-input').value);
-        //   fs.writeFile(f, jsonData, function(err) {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        // });
-      }
+      // function SaveData(){
+      //   writeTextFile(f,document.getElementById('email-input').value);
+      //   alert("Yay, hẹn gặp bạn vào ngày 30/10 nhé!");
+      //   //   var jsonData = JSON.stringify(document.getElementById('email-input').value);
+      //   //   fs.writeFile(f, jsonData, function(err) {
+      //   //     if (err) {
+      //   //         console.log(err);
+      //   //     }
+      //   // });
+      // }
+
+      window.addEventListener("load", function() {
+        const form = document.getElementById('my-form');
+        form.addEventListener("submit", function(e) {
+          e.preventDefault();
+          const data = new FormData(form);
+          const action = e.target.action;
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          })
+          .then(() => {
+            var countdown = document.getElementById('rsvp');
+            countdown.style.display = "none";
+            alert("Yay, hẹn gặp bạn vào ngày 30/10 nhé!");
+          })
+        });
+      });
       
 
     
