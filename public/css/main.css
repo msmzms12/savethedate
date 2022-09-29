@@ -205,7 +205,7 @@ li.timer span {
 }
 
 .emoji {
-  display: none;
+  /* display: none; */
   padding: 1rem;
 }
 
